@@ -122,7 +122,7 @@ public enum Result<T, Error: Swift.Error> {
     
 }
 
-public struct HTTPResource<T> where T: Decodable {
+public class HTTPResource<T> where T: Decodable {
     
     public enum Method: String {
         case GET
@@ -132,7 +132,25 @@ public struct HTTPResource<T> where T: Decodable {
     }
     
     public let method: Method
-    public let url: URL
+    public let baseURL: String
+    public let path: String
+    
+    public init(method: Method,
+                baseURL: String,
+                path: String) {
+        self.method = method
+        self.baseURL = baseURL
+        self.path = path
+    }
+    
+    /// URL for requests made for this Resource.
+    /// By default, it simply combines baseURL and path;
+    /// override to use a different strategy.
+    ///
+    /// - Returns: URL for requests made for this Resource.
+    public func composeURL() -> URL? {
+        return URL(string: baseURL + path)
+    }
     
 }
 
@@ -156,7 +174,12 @@ public final class HottPotato: JSONHTTPClient {
     
     public func sendRequest<T>(for resource: HTTPResource<T>,
                                completion: @escaping (Result<T,HTTPClientError>) -> ()) {
-        var httpRequest = HTTPRequest(url: resource.url)
+        guard let url = resource.composeURL() else {
+            completion(Result(error: .invalidRequestURL))
+            return
+        }
+        
+        var httpRequest = HTTPRequest(url: url)
         httpRequest.httpMethod = resource.method.rawValue
         requestSender.sendModelRequest(with: httpRequest, modelType: T.self, success: { model in
             completion(Result(value: model))
@@ -285,6 +308,7 @@ public protocol JSONHTTPClient: HTTPClient {
 }
 
 public enum HTTPClientError: Error {
+    case invalidRequestURL
     case responseError(value: Error)
     case incompleteResponse(data: Data?, response: HTTPURLResponse?)
     case errorStatusCode(value: Int)
@@ -326,6 +350,7 @@ struct HTTPResources {
     
     static let jobIDs: HTTPResource<[Int]>
         = HTTPResource(method: .GET,
-                       url: URL(string: "\(HTTPResources.baseURL)/jobstories.json")!)
+                       baseURL: HTTPResources.baseURL,
+                       path: "/jobstories.json")
     
 }
