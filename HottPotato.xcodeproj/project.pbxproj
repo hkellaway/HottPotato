@@ -9,7 +9,17 @@
 /* Begin PBXBuildFile section */
 		DC381DF02285FD2E0041D46F /* HottPotato.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC381DE62285FD2E0041D46F /* HottPotato.framework */; };
 		DC381E062285FDB00041D46F /* HottPotato.h in Headers */ = {isa = PBXBuildFile; fileRef = DC381E012285FDAF0041D46F /* HottPotato.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DC381E0B2285FED70041D46F /* HottPotatoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC381E042285FDAF0041D46F /* HottPotatoTests.swift */; };
+		DC381E2B228601850041D46F /* HTTPResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC381E2A228601850041D46F /* HTTPResource.swift */; };
+		DC381E2E228602500041D46F /* HTTPResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC381E2C2286024B0041D46F /* HTTPResourceTests.swift */; };
+		DC381E30228603540041D46F /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC381E2F228603540041D46F /* HTTPClient.swift */; };
+		DC381E32228603740041D46F /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC381E31228603740041D46F /* HTTPRequest.swift */; };
+		DC381E34228603DC0041D46F /* HTTPClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC381E33228603DC0041D46F /* HTTPClientError.swift */; };
+		DC381E36228604850041D46F /* JSONError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC381E35228604850041D46F /* JSONError.swift */; };
+		DC381E38228605200041D46F /* JSONHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC381E37228605200041D46F /* JSONHTTPClient.swift */; };
+		DC381E3A228605420041D46F /* JSONData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC381E39228605420041D46F /* JSONData.swift */; };
+		DC381E3C228605920041D46F /* DefaultJSONHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC381E3B228605920041D46F /* DefaultJSONHTTPClient.swift */; };
+		DC381E3E228607160041D46F /* HottPotato.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC381E3D228607160041D46F /* HottPotato.swift */; };
+		DC381E4022861FF50041D46F /* HottPotatoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC381E3F22861FF50041D46F /* HottPotatoError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,8 +37,18 @@
 		DC381DEF2285FD2E0041D46F /* HottPotatoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HottPotatoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC381E012285FDAF0041D46F /* HottPotato.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HottPotato.h; sourceTree = "<group>"; };
 		DC381E022285FDAF0041D46F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DC381E042285FDAF0041D46F /* HottPotatoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HottPotatoTests.swift; sourceTree = "<group>"; };
 		DC381E052285FDB00041D46F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC381E2A228601850041D46F /* HTTPResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPResource.swift; sourceTree = "<group>"; };
+		DC381E2C2286024B0041D46F /* HTTPResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPResourceTests.swift; sourceTree = "<group>"; };
+		DC381E2F228603540041D46F /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		DC381E31228603740041D46F /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
+		DC381E33228603DC0041D46F /* HTTPClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientError.swift; sourceTree = "<group>"; };
+		DC381E35228604850041D46F /* JSONError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONError.swift; sourceTree = "<group>"; };
+		DC381E37228605200041D46F /* JSONHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONHTTPClient.swift; sourceTree = "<group>"; };
+		DC381E39228605420041D46F /* JSONData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONData.swift; sourceTree = "<group>"; };
+		DC381E3B228605920041D46F /* DefaultJSONHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultJSONHTTPClient.swift; sourceTree = "<group>"; };
+		DC381E3D228607160041D46F /* HottPotato.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HottPotato.swift; sourceTree = "<group>"; };
+		DC381E3F22861FF50041D46F /* HottPotatoError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HottPotatoError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +91,16 @@
 		DC381E002285FDAF0041D46F /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				DC381E3D228607160041D46F /* HottPotato.swift */,
+				DC381E3B228605920041D46F /* DefaultJSONHTTPClient.swift */,
+				DC381E37228605200041D46F /* JSONHTTPClient.swift */,
+				DC381E2F228603540041D46F /* HTTPClient.swift */,
+				DC381E39228605420041D46F /* JSONData.swift */,
+				DC381E2A228601850041D46F /* HTTPResource.swift */,
+				DC381E31228603740041D46F /* HTTPRequest.swift */,
+				DC381E3F22861FF50041D46F /* HottPotatoError.swift */,
+				DC381E35228604850041D46F /* JSONError.swift */,
+				DC381E33228603DC0041D46F /* HTTPClientError.swift */,
 				DC381E012285FDAF0041D46F /* HottPotato.h */,
 				DC381E022285FDAF0041D46F /* Info.plist */,
 			);
@@ -80,7 +110,7 @@
 		DC381E032285FDAF0041D46F /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				DC381E042285FDAF0041D46F /* HottPotatoTests.swift */,
+				DC381E2C2286024B0041D46F /* HTTPResourceTests.swift */,
 				DC381E052285FDB00041D46F /* Info.plist */,
 			);
 			path = Tests;
@@ -148,6 +178,7 @@
 				TargetAttributes = {
 					DC381DE52285FD2E0041D46F = {
 						CreatedOnToolsVersion = 10.2;
+						LastSwiftMigration = 1020;
 					};
 					DC381DEE2285FD2E0041D46F = {
 						CreatedOnToolsVersion = 10.2;
@@ -194,6 +225,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC381E36228604850041D46F /* JSONError.swift in Sources */,
+				DC381E32228603740041D46F /* HTTPRequest.swift in Sources */,
+				DC381E34228603DC0041D46F /* HTTPClientError.swift in Sources */,
+				DC381E30228603540041D46F /* HTTPClient.swift in Sources */,
+				DC381E4022861FF50041D46F /* HottPotatoError.swift in Sources */,
+				DC381E3C228605920041D46F /* DefaultJSONHTTPClient.swift in Sources */,
+				DC381E38228605200041D46F /* JSONHTTPClient.swift in Sources */,
+				DC381E3A228605420041D46F /* JSONData.swift in Sources */,
+				DC381E3E228607160041D46F /* HottPotato.swift in Sources */,
+				DC381E2B228601850041D46F /* HTTPResource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC381E0B2285FED70041D46F /* HottPotatoTests.swift in Sources */,
+				DC381E2E228602500041D46F /* HTTPResourceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +382,7 @@
 		DC381DFB2285FD2E0041D46F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -357,6 +399,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.harlankellaway.HottPotato;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -365,6 +408,7 @@
 		DC381DFC2285FD2E0041D46F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -389,6 +433,7 @@
 		DC381DFE2285FD2E0041D46F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -406,6 +451,7 @@
 		DC381DFF2285FD2E0041D46F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
