@@ -97,7 +97,6 @@ httpClient.sendJSONRequest(with: request, success: { (_, json) in
 At its very heart, HottPotato simply makes a `URLRequest` using `URLSession` and returns the retrieved `Data` and `HTTPURLResponse`. If you'd rather use it to query this data, simply: 
 
 ```swift
-```swift
 httpClient.sendHTTPRequest(with: request, success: { (_, response) in
 	print(response.statusCode)
 }, failure: { error in
