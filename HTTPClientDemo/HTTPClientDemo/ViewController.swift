@@ -56,21 +56,6 @@ public enum Result<T, Error: Swift.Error> {
         }
     }
     
-    /// Whether this Result represents a success.
-    public var isSuccess: Bool {
-        switch self {
-        case .success:
-            return true
-        case .failure:
-            return false
-        }
-    }
-    
-    /// Whether this Result represents a failure.
-    public var isFailure: Bool {
-        return !isSuccess
-    }
-    
     // MARK: - Init/Deinit
     
     /// Initializes a Result with the specified value.
@@ -158,7 +143,7 @@ public final class HottPotato {
     private let requestSender: JSONHTTPClient
     
     public var urlSession: URLSession? {
-        return ((requestSender as? DefaultJSONHTTPClient)?.requestSender as? DefaultHTTPClient)?.urlSession
+        return ((requestSender as? DefaultJSONHTTPClient)?.urlSession)
     }
     
     public convenience init(jsonReadingOptions: JSONSerialization.ReadingOptions) {
@@ -170,7 +155,7 @@ public final class HottPotato {
     }
     
     public func sendRequest<T>(_ request: HTTPRequest<T>,
-                               completion: @escaping (Result<T,JSONHTTPClientError>) -> ()) {
+                               completion: @escaping (Result<T,HTTPClientError>) -> ()) {
         var urlRequest = URLRequest(url: request.url)
         urlRequest.httpMethod = request.method.rawValue
         requestSender.sendModelRequest(with: urlRequest, modelType: T.self, success: { model in
@@ -184,30 +169,16 @@ public final class HottPotato {
 
 public typealias JSONData = Data
 
-public enum JSONHTTPClientError: Error {
-    case httpClientError(value: HTTPClientError)
-    case invalidJSON
-    case jsonParsingFailed
-}
-
 public class DefaultJSONHTTPClient: JSONHTTPClient {
     
-    public let requestSender: HTTPClient
+    public let urlSession: URLSession
     public let decoder: JSONDecoder
     public let options: JSONSerialization.ReadingOptions
     
-    public convenience init(urlSession: URLSession,
-                            decoder: JSONDecoder = JSONDecoder(),
-                            options: JSONSerialization.ReadingOptions) {
-        self.init(requestSender: DefaultHTTPClient(urlSession: urlSession),
-                  decoder: decoder,
-                  options: options)
-    }
-    
-    public init(requestSender: HTTPClient = DefaultHTTPClient(),
+    public init(urlSession: URLSession = URLSession.shared,
                 decoder: JSONDecoder = JSONDecoder(),
                 options: JSONSerialization.ReadingOptions = []) {
-        self.requestSender = requestSender
+        self.urlSession = urlSession
         self.decoder = decoder
         self.options = options
     }
@@ -219,7 +190,7 @@ public class DefaultJSONHTTPClient: JSONHTTPClient {
     public func sendModelRequest<T: Decodable>(with urlRequest: URLRequest,
                                                modelType: T.Type,
                                                success: @escaping (T) -> (),
-                                               failure: @escaping (JSONHTTPClientError) -> ()) {
+                                               failure: @escaping (HTTPClientError) -> ()) {
         sendJSONRequest(with: urlRequest, success: { [weak self] json in
             guard let self = self else { return }
             do {
@@ -234,9 +205,9 @@ public class DefaultJSONHTTPClient: JSONHTTPClient {
     }
     
     public func sendJSONRequest(with urlRequest: URLRequest,
-                     success: @escaping (JSONData) -> (),
-                     failure: @escaping (JSONHTTPClientError) -> ()) {
-        requestSender.sendRequest(with: urlRequest, success: { [weak self] (data, _) in
+                                success: @escaping (JSONData) -> (),
+                                failure: @escaping (HTTPClientError) -> ()) {
+        sendRequest(with: urlRequest, success: { [weak self] (data, _) in
             guard let self = self else { return }
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: self.options)
@@ -248,55 +219,12 @@ public class DefaultJSONHTTPClient: JSONHTTPClient {
             } catch {
                 failure(.invalidJSON)
             }
-        }, failure: { error in
-            failure(.httpClientError(value: error))
+            }, failure: { error in
+                failure(.responseError(value: error))
         })
     }
     
     // MARK: HTTPClient
-    
-    public func sendRequest(with urlRequest: URLRequest,
-                     success: @escaping (Data, HTTPURLResponse) -> (),
-                     failure: @escaping (HTTPClientError) -> ()) {
-        requestSender.sendRequest(with: urlRequest, success: success, failure: failure)
-    }
-    
-}
-
-public protocol JSONHTTPClient: HTTPClient {
-    
-    func sendModelRequest<T: Decodable>(with urlRequest: URLRequest,
-                                        modelType: T.Type,
-                                        success: @escaping (T) -> (),
-                                        failure: @escaping (JSONHTTPClientError) -> ())
-    
-    func sendJSONRequest(with urlRequest: URLRequest,
-                         success: @escaping (JSONData) -> (),
-                         failure: @escaping (JSONHTTPClientError) -> ())
-    
-}
-
-public enum HTTPClientError: Error {
-    case responseError(value: Error)
-    case incompleteResponse(data: Data?, response: HTTPURLResponse?)
-    case errorStatusCode(value: Int)
-}
-
-public protocol HTTPClient {
-    
-    func sendRequest(with urlRequest: URLRequest,
-                     success: @escaping (Data, HTTPURLResponse) -> (),
-                     failure: @escaping (HTTPClientError) -> ())
-    
-}
-
-public final class DefaultHTTPClient: HTTPClient {
-    
-    public let urlSession: URLSession
-    
-    public init(urlSession: URLSession = URLSession.shared) {
-        self.urlSession = urlSession
-    }
     
     public func sendRequest(with urlRequest: URLRequest,
                             success: @escaping (Data, HTTPURLResponse) -> (),
@@ -310,8 +238,8 @@ public final class DefaultHTTPClient: HTTPClient {
             guard
                 let unwrappedData = data,
                 let httpResponse = response as? HTTPURLResponse else {
-                failure(.incompleteResponse(data: data, response: response as? HTTPURLResponse))
-                return
+                    failure(.incompleteResponse(data: data, response: response as? HTTPURLResponse))
+                    return
             }
             
             let successStatusCodes: Range<Int> = 200..<300
@@ -327,13 +255,41 @@ public final class DefaultHTTPClient: HTTPClient {
     
 }
 
+public protocol JSONHTTPClient: HTTPClient {
+    
+    func sendModelRequest<T: Decodable>(with urlRequest: URLRequest,
+                                        modelType: T.Type,
+                                        success: @escaping (T) -> (),
+                                        failure: @escaping (HTTPClientError) -> ())
+    
+    func sendJSONRequest(with urlRequest: URLRequest,
+                         success: @escaping (JSONData) -> (),
+                         failure: @escaping (HTTPClientError) -> ())
+    
+}
+
+public enum HTTPClientError: Error {
+    case responseError(value: Error)
+    case incompleteResponse(data: Data?, response: HTTPURLResponse?)
+    case errorStatusCode(value: Int)
+    case invalidJSON
+    case jsonParsingFailed
+}
+
+public protocol HTTPClient {
+    
+    func sendRequest(with urlRequest: URLRequest,
+                     success: @escaping (Data, HTTPURLResponse) -> (),
+                     failure: @escaping (HTTPClientError) -> ())
+    
+}
+
 class ViewController: UIViewController {
     
     var httpClient = HottPotato.shared
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let request = HTTPRequest<[Int]>(method: .GET,
                                          url: URL(string: "https://hacker-news.firebaseio.com/v0/jobstories.json")!)
         httpClient.sendRequest(request) { result in
@@ -345,7 +301,5 @@ class ViewController: UIViewController {
             }
         }
     }
-
-
 }
 
