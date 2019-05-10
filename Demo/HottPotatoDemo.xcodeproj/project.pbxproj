@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A4C89BA6E4D49390D837833C /* Pods_HottPotatoDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BEA8A7065BBD9B2DC278887 /* Pods_HottPotatoDemo.framework */; };
 		DC381E192285FF4C0041D46F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC381E182285FF4C0041D46F /* AppDelegate.swift */; };
 		DC381E1B2285FF4C0041D46F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC381E1A2285FF4C0041D46F /* ViewController.swift */; };
 		DC381E1E2285FF4C0041D46F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC381E1C2285FF4C0041D46F /* Main.storyboard */; };
@@ -15,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		09B1E40EC7F37C62E7DB9BC7 /* Pods-HottPotatoDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HottPotatoDemo.debug.xcconfig"; path = "Target Support Files/Pods-HottPotatoDemo/Pods-HottPotatoDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		8BEA8A7065BBD9B2DC278887 /* Pods_HottPotatoDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HottPotatoDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC381E152285FF4C0041D46F /* HottPotatoDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HottPotatoDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC381E182285FF4C0041D46F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC381E1A2285FF4C0041D46F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +25,7 @@
 		DC381E1F2285FF4E0041D46F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DC381E222285FF4E0041D46F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DC381E242285FF4E0041D46F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FF9A9011AE67F61A4AA7A735 /* Pods-HottPotatoDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HottPotatoDemo.release.xcconfig"; path = "Target Support Files/Pods-HottPotatoDemo/Pods-HottPotatoDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4C89BA6E4D49390D837833C /* Pods_HottPotatoDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		98168728E0A8FCE750417889 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8BEA8A7065BBD9B2DC278887 /* Pods_HottPotatoDemo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DC381E0C2285FF4C0041D46F = {
 			isa = PBXGroup;
 			children = (
 				DC381E172285FF4C0041D46F /* HottPotatoDemo */,
 				DC381E162285FF4C0041D46F /* Products */,
+				DD87C8457AC2B51FC1D3AE42 /* Pods */,
+				98168728E0A8FCE750417889 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +79,16 @@
 			path = HottPotatoDemo;
 			sourceTree = "<group>";
 		};
+		DD87C8457AC2B51FC1D3AE42 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				09B1E40EC7F37C62E7DB9BC7 /* Pods-HottPotatoDemo.debug.xcconfig */,
+				FF9A9011AE67F61A4AA7A735 /* Pods-HottPotatoDemo.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,6 +96,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DC381E272285FF4E0041D46F /* Build configuration list for PBXNativeTarget "HottPotatoDemo" */;
 			buildPhases = (
+				0744F0251B4013F821FAB5C2 /* [CP] Check Pods Manifest.lock */,
 				DC381E112285FF4C0041D46F /* Sources */,
 				DC381E122285FF4C0041D46F /* Frameworks */,
 				DC381E132285FF4C0041D46F /* Resources */,
@@ -129,6 +155,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0744F0251B4013F821FAB5C2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HottPotatoDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DC381E112285FF4C0041D46F /* Sources */ = {
@@ -280,6 +331,7 @@
 		};
 		DC381E282285FF4E0041D46F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09B1E40EC7F37C62E7DB9BC7 /* Pods-HottPotatoDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -297,6 +349,7 @@
 		};
 		DC381E292285FF4E0041D46F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF9A9011AE67F61A4AA7A735 /* Pods-HottPotatoDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
