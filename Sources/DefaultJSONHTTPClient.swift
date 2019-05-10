@@ -47,10 +47,10 @@ public class DefaultJSONHTTPClient: JSONHTTPClient {
                                                modelType: T.Type,
                                                success: @escaping (T) -> (),
                                                failure: @escaping (Error) -> ()) {
-        sendJSONRequest(with: httpRequest, success: { [weak self] json in
+        sendJSONRequest(with: httpRequest, success: { [weak self] (data, json) in
             guard let self = self else { return }
             do {
-                let model = try self.decoder.decode(modelType.self, from: json)
+                let model = try self.decoder.decode(modelType.self, from: data)
                 success(model)
             } catch {
                 failure(JSONError.jsonParsingFailed)
@@ -61,9 +61,9 @@ public class DefaultJSONHTTPClient: JSONHTTPClient {
     }
     
     public func sendJSONRequest(with urlRequest: URLRequest,
-                                success: @escaping (JSONData) -> (),
+                                success: @escaping (_ data: JSONData, _ json: JSON) -> (),
                                 failure: @escaping (Error) -> ()) {
-        sendRequest(with: urlRequest, success: { [weak self] (data, _) in
+        sendHTTPRequest(with: urlRequest, success: { [weak self] (data, _) in
             guard let self = self else { return }
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: self.options)
@@ -71,7 +71,7 @@ public class DefaultJSONHTTPClient: JSONHTTPClient {
                     failure(JSONError.invalidJSON(value: json))
                     return
                 }
-                success(data)
+                success(data, json)
             } catch {
                 failure(JSONError.invalidJSON(value: data))
             }
@@ -82,9 +82,9 @@ public class DefaultJSONHTTPClient: JSONHTTPClient {
     
     // MARK: HTTPClient
     
-    public func sendRequest(with httpRequest: HTTPRequest,
-                            success: @escaping (Data, HTTPURLResponse) -> (),
-                            failure: @escaping (HTTPClientError) -> ()) {
+    public func sendHTTPRequest(with httpRequest: HTTPRequest,
+                                success: @escaping (Data, HTTPURLResponse) -> (),
+                                failure: @escaping (HTTPClientError) -> ()) {
         let _ = urlSession.dataTask(with: httpRequest, completionHandler: { (data, response, error) in
             if let error = error {
                 failure(.responseError(value: error))

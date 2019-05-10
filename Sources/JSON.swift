@@ -1,5 +1,5 @@
 //
-//  JSONData.swift
+//  JSON.swift
 //  HottPotato
 //
 //  Created by Harlan Kellaway on 5/10/19.
@@ -7,6 +7,9 @@
 //
 
 import Foundation
+
+/// JSON.
+public typealias JSON = Any
 
 /// Data known to be in valid JSON format.
 public typealias JSONData = Data

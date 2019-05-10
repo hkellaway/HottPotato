@@ -11,8 +11,8 @@ import Foundation
 /// Sends HTTP requests.
 public protocol HTTPClient {
     
-    func sendRequest(with httpRequest: HTTPRequest,
-                     success: @escaping (Data, HTTPURLResponse) -> (),
-                     failure: @escaping (HTTPClientError) -> ())
+    func sendHTTPRequest(with httpRequest: HTTPRequest,
+                         success: @escaping (Data, HTTPURLResponse) -> (),
+                         failure: @escaping (HTTPClientError) -> ())
     
 }

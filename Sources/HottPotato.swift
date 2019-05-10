@@ -70,12 +70,12 @@ public final class HottPotato: JSONHTTPClient {
         requestSender.sendModelRequest(with: request, modelType: modelType, success: success, failure: failure)
     }
     
-    public func sendJSONRequest(with request: HTTPRequest, success: @escaping (JSONData) -> (), failure: @escaping (Error) -> ()) {
+    public func sendJSONRequest(with request: HTTPRequest, success: @escaping (_ data: JSONData, _ json: JSON) -> (), failure: @escaping (Error) -> ()) {
         requestSender.sendJSONRequest(with: request, success: success, failure: failure)
     }
     
-    public func sendRequest(with request: HTTPRequest, success: @escaping (Data, HTTPURLResponse) -> (), failure: @escaping (HTTPClientError) -> ()) {
-        requestSender.sendRequest(with: request, success: success, failure: failure)
+    public func sendHTTPRequest(with request: HTTPRequest, success: @escaping (Data, HTTPURLResponse) -> (), failure: @escaping (HTTPClientError) -> ()) {
+        requestSender.sendHTTPRequest(with: request, success: success, failure: failure)
     }
     
 }

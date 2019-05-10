@@ -17,7 +17,7 @@ public protocol JSONHTTPClient: HTTPClient {
                                         failure: @escaping (Error) -> ())
     
     func sendJSONRequest(with urlRequest: HTTPRequest,
-                         success: @escaping (JSONData) -> (),
+                         success: @escaping (_ data: JSONData, _ json: JSON) -> (),
                          failure: @escaping (Error) -> ())
     
 }
