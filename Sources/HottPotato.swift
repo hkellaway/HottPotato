@@ -48,13 +48,11 @@ public final class HottPotato: JSONHTTPClient {
     ///   - completion: Completion with result.
     public func sendRequest<T>(for resource: HTTPResource<T>,
                                completion: @escaping (Result<T,HottPotatoError>) -> ()) {
-        guard let url = resource.composeURL() else {
+        guard let httpRequest = resource.toHTTPRequest() else {
             completion(.failure(.invalidRequestURL))
             return
         }
         
-        var httpRequest = HTTPRequest(url: url)
-        httpRequest.httpMethod = resource.method.rawValue
         requestSender.sendModelRequest(with: httpRequest, modelType: T.self, success: { model in
             completion(.success(model))
         }, failure: { error in

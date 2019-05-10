@@ -75,4 +75,16 @@ public class HTTPResource<T> where T: Decodable {
         return URL(string: baseURL + path)
     }
     
+    /// Converts Resource to HTTP Request.
+    ///
+    /// - Returns: HTTP Request if successful, nil otherwise.
+    public func toHTTPRequest() -> HTTPRequest? {
+        guard let url = composeURL() else {
+            return nil
+        }
+        var request = HTTPRequest(url: url)
+        request.httpMethod = method.rawValue
+        return request
+    }
+    
 }
