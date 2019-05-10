@@ -161,6 +161,10 @@ public final class HottPotato {
         return ((requestSender as? DefaultJSONHTTPClient)?.requestSender as? DefaultHTTPClient)?.urlSession
     }
     
+    public convenience init(jsonReadingOptions: JSONSerialization.ReadingOptions) {
+        self.init(requestSender: DefaultJSONHTTPClient(options: jsonReadingOptions))
+    }
+    
     public init(requestSender: JSONHTTPClient = DefaultJSONHTTPClient()) {
         self.requestSender = requestSender
     }
@@ -330,8 +334,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let request: HTTPRequest<[Int]> = HTTPRequest(method: .GET,
-                                                      url: URL(string: "https://hacker-news.firebaseio.com/v0/jobstories.json")!)
+        let request = HTTPRequest<[Int]>(method: .GET,
+                                         url: URL(string: "https://hacker-news.firebaseio.com/v0/jobstories.json")!)
         httpClient.sendRequest(request) { result in
             switch result {
             case .success(let jobIDs):
