@@ -122,7 +122,7 @@ public enum Result<T, Error: Swift.Error> {
     
 }
 
-public struct HTTPRequest<T> where T: Decodable {
+public struct HTTPResource<T> where T: Decodable {
     
     public enum Method: String {
         case GET
@@ -136,7 +136,7 @@ public struct HTTPRequest<T> where T: Decodable {
     
 }
 
-public final class HottPotato {
+public final class HottPotato: JSONHTTPClient {
     
     public static var shared = HottPotato()
     
@@ -154,15 +154,31 @@ public final class HottPotato {
         self.requestSender = requestSender
     }
     
-    public func sendRequest<T>(_ request: HTTPRequest<T>,
+    public func sendRequest<T>(for resource: HTTPResource<T>,
                                completion: @escaping (Result<T,HTTPClientError>) -> ()) {
-        var urlRequest = URLRequest(url: request.url)
-        urlRequest.httpMethod = request.method.rawValue
-        requestSender.sendModelRequest(with: urlRequest, modelType: T.self, success: { model in
+        var httpRequest = HTTPRequest(url: resource.url)
+        httpRequest.httpMethod = resource.method.rawValue
+        requestSender.sendModelRequest(with: httpRequest, modelType: T.self, success: { model in
             completion(Result(value: model))
         }, failure: { error in
             completion(Result(error: error))
         })
+    }
+    
+    // MARK: - Protocol conformance
+    
+    // MARK: JSONHTTPClient
+    
+    public func sendModelRequest<T>(with request: HTTPRequest, modelType: T.Type, success: @escaping (T) -> (), failure: @escaping (HTTPClientError) -> ()) where T : Decodable {
+        requestSender.sendModelRequest(with: request, modelType: modelType, success: success, failure: failure)
+    }
+    
+    public func sendJSONRequest(with request: HTTPRequest, success: @escaping (JSONData) -> (), failure: @escaping (HTTPClientError) -> ()) {
+        requestSender.sendJSONRequest(with: request, success: success, failure: failure)
+    }
+    
+    public func sendRequest(with request: HTTPRequest, success: @escaping (Data, HTTPURLResponse) -> (), failure: @escaping (HTTPClientError) -> ()) {
+        requestSender.sendRequest(with: request, success: success, failure: failure)
     }
     
 }
@@ -226,10 +242,10 @@ public class DefaultJSONHTTPClient: JSONHTTPClient {
     
     // MARK: HTTPClient
     
-    public func sendRequest(with urlRequest: URLRequest,
+    public func sendRequest(with httpRequest: HTTPRequest,
                             success: @escaping (Data, HTTPURLResponse) -> (),
                             failure: @escaping (HTTPClientError) -> ()) {
-        let _ = urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
+        let _ = urlSession.dataTask(with: httpRequest, completionHandler: { (data, response, error) in
             if let error = error {
                 failure(.responseError(value: error))
                 return
@@ -257,12 +273,12 @@ public class DefaultJSONHTTPClient: JSONHTTPClient {
 
 public protocol JSONHTTPClient: HTTPClient {
     
-    func sendModelRequest<T: Decodable>(with urlRequest: URLRequest,
+    func sendModelRequest<T: Decodable>(with urlRequest: HTTPRequest,
                                         modelType: T.Type,
                                         success: @escaping (T) -> (),
                                         failure: @escaping (HTTPClientError) -> ())
     
-    func sendJSONRequest(with urlRequest: URLRequest,
+    func sendJSONRequest(with urlRequest: HTTPRequest,
                          success: @escaping (JSONData) -> (),
                          failure: @escaping (HTTPClientError) -> ())
     
@@ -278,11 +294,13 @@ public enum HTTPClientError: Error {
 
 public protocol HTTPClient {
     
-    func sendRequest(with urlRequest: URLRequest,
+    func sendRequest(with urlRequest: HTTPRequest,
                      success: @escaping (Data, HTTPURLResponse) -> (),
                      failure: @escaping (HTTPClientError) -> ())
     
 }
+
+public typealias HTTPRequest = URLRequest
 
 class ViewController: UIViewController {
     
@@ -290,9 +308,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let request = HTTPRequest<[Int]>(method: .GET,
-                                         url: URL(string: "https://hacker-news.firebaseio.com/v0/jobstories.json")!)
-        httpClient.sendRequest(request) { result in
+        
+        httpClient.sendRequest(for: HTTPResources.jobIDs) { result in
             switch result {
             case .success(let jobIDs):
                 print(jobIDs)
@@ -303,3 +320,12 @@ class ViewController: UIViewController {
     }
 }
 
+struct HTTPResources {
+    
+    static let baseURL = "https://hacker-news.firebaseio.com/v0"
+    
+    static let jobIDs: HTTPResource<[Int]>
+        = HTTPResource(method: .GET,
+                       url: URL(string: "\(HTTPResources.baseURL)/jobstories.json")!)
+    
+}
