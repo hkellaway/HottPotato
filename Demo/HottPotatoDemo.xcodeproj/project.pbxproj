@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,7 @@
 		DC381E1E2285FF4C0041D46F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC381E1C2285FF4C0041D46F /* Main.storyboard */; };
 		DC381E202285FF4E0041D46F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC381E1F2285FF4E0041D46F /* Assets.xcassets */; };
 		DC381E232285FF4E0041D46F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC381E212285FF4E0041D46F /* LaunchScreen.storyboard */; };
+		DC381E42228623B50041D46F /* GitHubProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC381E41228623B50041D46F /* GitHubProfile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		DC381E1F2285FF4E0041D46F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DC381E222285FF4E0041D46F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DC381E242285FF4E0041D46F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC381E41228623B50041D46F /* GitHubProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubProfile.swift; sourceTree = "<group>"; };
 		FF9A9011AE67F61A4AA7A735 /* Pods-HottPotatoDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HottPotatoDemo.release.xcconfig"; path = "Target Support Files/Pods-HottPotatoDemo/Pods-HottPotatoDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,6 +73,7 @@
 			children = (
 				DC381E182285FF4C0041D46F /* AppDelegate.swift */,
 				DC381E1A2285FF4C0041D46F /* ViewController.swift */,
+				DC381E41228623B50041D46F /* GitHubProfile.swift */,
 				DC381E1C2285FF4C0041D46F /* Main.storyboard */,
 				DC381E1F2285FF4E0041D46F /* Assets.xcassets */,
 				DC381E212285FF4E0041D46F /* LaunchScreen.storyboard */,
@@ -85,7 +88,6 @@
 				09B1E40EC7F37C62E7DB9BC7 /* Pods-HottPotatoDemo.debug.xcconfig */,
 				FF9A9011AE67F61A4AA7A735 /* Pods-HottPotatoDemo.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -100,6 +102,7 @@
 				DC381E112285FF4C0041D46F /* Sources */,
 				DC381E122285FF4C0041D46F /* Frameworks */,
 				DC381E132285FF4C0041D46F /* Resources */,
+				025658318436D10029EBB31F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -157,6 +160,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		025658318436D10029EBB31F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HottPotatoDemo/Pods-HottPotatoDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HottPotatoDemo/Pods-HottPotatoDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HottPotatoDemo/Pods-HottPotatoDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		0744F0251B4013F821FAB5C2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -187,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC381E1B2285FF4C0041D46F /* ViewController.swift in Sources */,
+				DC381E42228623B50041D46F /* GitHubProfile.swift in Sources */,
 				DC381E192285FF4C0041D46F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
