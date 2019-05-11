@@ -80,7 +80,7 @@ Why? Because this is a typical setup for applications & libraries I've worked on
 
 #### Retrieving JSON
 
-Internally, HottPotato retrieves JSON - if you'd rather used it to query this data, simply:
+Internally, HottPotato retrieves JSON - if you'd rather use it to retrieve JSON, simply:
 
 ```swift
 guard let request = resource.toHTTPRequest() else {
@@ -96,7 +96,7 @@ httpClient.sendJSONRequest(with: request, success: { (_, json) in
 
 #### Retrieving Raw Data and HTTPURLResponse
 
-At its very heart, HottPotato simply makes a `URLRequest` using `URLSession` and returns the retrieved `Data` and `HTTPURLResponse`. If you'd rather use it to query this data, simply: 
+At its very heart, HottPotato simply makes a `URLRequest` using `URLSession` and returns the retrieved `Data` and `HTTPURLResponse`. If you'd rather use it to get back the raw response, simply: 
 
 ```swift
 httpClient.sendHTTPRequest(with: request, success: { (_, response) in
