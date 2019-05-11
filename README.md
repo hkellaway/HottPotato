@@ -74,7 +74,9 @@ httpClient.sendRequest(for: resource) { result in
 
 ### Discussion
 
-HottPotato simply wraps `URLSession` and leverages some preferred context and patterns. Namely, it assumes we're making HTTP requests and that we're receiving JSON back. Additionally, it uses the `Result` type in its response.
+HottPotato simply wraps `URLSession` and leverages some preferred context and patterns. Namely, it assumes we're making HTTP requests, we're receiving JSON back, and our requested models conform to`Decodable`. Additionally, it uses the `Result` type in its response.
+
+Why? Because this is a typical setup for applications & libraries I've worked on. Plus, I'm a big fan of the `Result` type.
 
 #### Retrieving JSON
 
