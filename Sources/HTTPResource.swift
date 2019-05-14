@@ -26,7 +26,7 @@
 import Foundation
 
 /// Properties needed to define an HTTP request against a resource.
-public class HTTPResource<T> where T: Decodable {
+open class HTTPResource<T: Decodable> {
     
     // MARK: - Types
     
