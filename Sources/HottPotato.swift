@@ -40,6 +40,14 @@ public final class HottPotato: JSONHTTPClient {
     /// Sends HTTP requests assuming JSON response.
     public let requestSender: JSONHTTPClient
     
+    /// Sets keyDecodingStrategy, if default configuration is used.
+    public var keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys {
+        didSet {
+            (requestSender as? DefaultJSONHTTPClient)?.decoder
+                .keyDecodingStrategy = keyDecodingStrategy
+        }
+    }
+    
     /// URL session used for HTTP requests, if default configuration is used.
     public var urlSession: URLSession? {
         return ((requestSender as? DefaultJSONHTTPClient)?.urlSession)
